@@ -1,6 +1,6 @@
 {
   "name": "patchguard",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Zero-dependency static security and hallucination linter for Git diffs, staged changes, and AI-generated code patches.",
   "main": "src/index.js",
   "bin": {

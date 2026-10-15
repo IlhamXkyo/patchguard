@@ -61,7 +61,12 @@ function parseDiff(diffText) {
 
     // Process diff content lines inside hunk
     if (currentHunk) {
-      if (line.startsWith('+') && !line.startsWith('+++')) {
+      if (line.startsWith('+++ b/') || line.startsWith('--- a/')) {
+        // Redundant file headers occasionally repeated before hunks
+        continue;
+      }
+
+      if (line.startsWith('+')) {
         const addedContent = line.slice(1);
         currentFile.additions.push({
           line: currentNewLineno,
@@ -69,7 +74,7 @@ function parseDiff(diffText) {
           raw: line
         });
         currentNewLineno++;
-      } else if (line.startsWith('-') && !line.startsWith('---')) {
+      } else if (line.startsWith('-')) {
         currentFile.deletions.push({
           content: line.slice(1),
           raw: line
